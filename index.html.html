@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayo Kenali Bahaya Kolesterol!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"> <!-- Font lucu -->
+    <style>
+        body {
+            font-family: 'Fredoka One', cursive; /* Font lucu */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #87CEEB, #98FB98, #FFD700, #FFA500); /* Warna pastel */
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        header h1 {
+            font-size: 2em;
+            color: #FF6347;
+        }
+
+        .koko-img {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .illustration img {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .illustration img:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-btn, .back-btn {
+            background: #FFD700;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .menu-btn:hover, .back-btn:hover {
+            background: #FFA500;
+            transform: scale(1.05);
+        }
+
+        .learn-content p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin: 20px;
+        }
+
+        #game-content, #quiz-content {
+            margin: 20px;
+        }
+
+        #options, #quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .option-btn {
+            background: #98FB98;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .option-btn:hover {
+            background: #87CEEB;
+        }
+
+        #feedback, #quiz-feedback {
+            font-size: 1.2em;
+            margin: 20px;
+        }
+
+        /* Responsivitas */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            .menu-btn, .back-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .illustration img {
+                width: 100px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="https://www.freesound.org/data/previews/316/316847_5123451-lq.mp3" type="audio/mpeg"> <!-- Placeholder musik ceria -->
+    </audio>
+    <audio id="click-sound">
+        <source src="https://www.freesound.org/data/previews/316/316848_5123451-lq.mp3" type="audio/mpeg"> <!-- Placeholder efek klik -->
+    </audio>
+
+    <div id="home" class="page active">
+        <header>
+            <h1>Ayo Kenali Bahaya Kolesterol Bersama Koko Si Kolesterol!</h1>
+            <img src="https://via.placeholder.com/200x150/FFD700/000000?text=Koko+Si+Kolesterol" alt="Koko Si Kolesterol" class="koko-img"> <!-- Placeholder kartun -->
+        </header>
+        <div class="content">
+            <div class="illustration">
+                <img src="https://via.placeholder.com/150x100/87CEEB/000000?text=Hati+Sehat" alt="Hati Sehat" class="heart-img">
+                <img src="https://via.placeholder.com/150x100/98FB98/000000?text=Sayur+Buah" alt="Makanan Sehat">
+                <img src="https://via.placeholder.com/150x100/FFA500/000000?text=Burger+Gorengan" alt="Makanan Tinggi Lemak">
+            </div>
+            <div class="menu">
+                <button class="menu-btn" onclick="navigate('learn')">Belajar Yuk!</button>
+                <button class="menu-btn" onclick="navigate('game')">Pilih Makanan Sehat!</button>
+                <button class="menu-btn" onclick="navigate('quiz')">Kuis Seru!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="learn" class="page">
+        <h2>Belajar Yuk!</h2>
+        <div class="learn-content">
+            <p>Kolesterol adalah zat seperti lemak di dalam darah. Ada yang baik (HDL) dan buruk (LDL). Kolesterol tinggi bisa bikin jantung sakit!</p>
+            <p><strong>Perbedaan LDL dan HDL:</strong> LDL buruk, HDL baik. Jaga HDL tinggi, LDL rendah.</p>
+            <p><strong>Bahaya Kolesterol Tinggi:</strong> Bisa bikin penyumbatan pembuluh darah, serangan jantung, atau stroke.</p>
+            <p><strong>Tips Menjaga Kesehatan:</strong> Makan sayur, buah, olahraga, hindari gorengan!</p>
+        </div>
+        <button class="back-btn" onclick="navigate('home')">Kembali</button>
+    </div>
+
+    <div id="game" class="page">
+        <h2>Pilih Makanan Sehat!</h2>
+        <div id="game-content">
+            <p id="question">Pilih makanan sehat!</p>
+            <div id="options"></div>
+            <p id="feedback"></p>
+        </div>
+        <button class="back-btn" onclick="navigate('home')">Kembali</button>
+    </div>
+
+    <div id="quiz" class="page">
+        <h2>Kuis Seru!</h2>
+        <div id="quiz-content">
+            <p id="quiz-question"></p>
+            <div id="quiz-options"></div>
+            <p id="quiz-feedback"></p>
+            <button id="next-btn" style="display:none;" onclick="nextQuestion()">Selanjutnya</button>
+        </div>
+        <div id="quiz-result" style="display:none;">
+            <p id="score"></p>
+            <p id="motivation"></p>
+            <button class="back-btn" onclick="navigate('home')">Kembali</button>
+        </div>
+    </div>
+
+    <script>
+        // Navigasi antar halaman
+        function navigate(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            playSound('click-sound');
+        }
+
+        // Musik latar
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('bg-music').play();
+        });
+
+        // Efek suara
+        function playSound(id) {
+            document.getElementById(id).play();
+        }
+
+        // Game: Pilih Makanan Sehat
+        const foods = [
+            { name: 'Apel', healthy: true },
+            { name: 'Burger', healthy: false },
+            { name: 'Bayam', healthy: true },
+            { name: 'Gorengan', healthy: false },
+            { name: 'Jeruk', healthy: true },
+            { name: 'Pizza', healthy: false }
+        ];
+
+        let currentFood;
+        function loadGame() {
+            currentFood = foods[Math.floor(Math.random() * foods.length)];
+            document.getElementById('question').textContent = `Apakah ${currentFood.name} sehat?`;
+            document.getElementById('options').innerHTML = `
+                <button class="option-btn" onclick="checkAnswer(true)">Ya</button>
+                <button class="option-btn" onclick="checkAnswer(false)">Tidak</button>
+            `;
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function checkAnswer(answer) {
+            const isCorrect = (answer === currentFood.healthy);
+            document.getElementById('feedback').textContent = isCorrect ? 'Pilihan yang bagus! Kolesterolmu aman 😄' : 'Ups! Kolesterolmu naik 😬';
+            setTimeout(loadGame, 2000);
+        }
+
+        if (document.getElementById('game')) loadGame();
+
+        // Kuis Seru
+        const questions = [
+            { q: 'Apa itu kolesterol?', options: ['Lemak di darah', 'Vitamin', 'Protein'], correct: 0 },
+            { q: 'LDL adalah kolesterol yang...', options: ['Baik', 'Buruk', 'Netral'], correct: 1 },
+            { q: 'Bahaya kolesterol tinggi adalah...', options: ['Sakit jantung', 'Sakit gigi', 'Sakit kepala'], correct: 0 },
+            { q: 'Makanan sehat untuk jaga kolesterol?', options: ['Sayur', 'Gorengan', 'Es krim'], correct: 0 },
+            { q: 'Olahraga membantu...', options: ['Tingkatkan HDL', 'Turunkan LDL', 'Keduanya'], correct: 2 },
+            { q: 'Kolesterol HDL adalah...', options: ['Buruk', 'Baik', 'Netral'], correct: 1 },
+            { q: 'Hindari makanan tinggi...', options: ['Lemak jenuh', 'Vitamin', 'Air'], correct: 0 }
+        ];
+
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            quizQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 5);
+            currentQuestionIndex = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                showResult();
+                return;
+            }
+            const q = quizQuestions[currentQuestionIndex];
+            document.getElementById('quiz-question').textContent = q.q;
+            document.getElementById('quiz-options').innerHTML = q.options.map((opt, i) => 
+                `<button class="option-btn" onclick="checkQuizAnswer(${i})">${opt}</button>`
+            ).join('');
+            document.getElementById('quiz-feedback').textContent = '';
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        function checkQuizAnswer(answer) {
+            const q = quizQuestions[currentQuestionIndex];
+            if (answer === q.correct) {
+                score++;
+                document.getElementById('quiz-feedback').textContent = 'Benar! 🎉';
+            } else {
+                document.getElementById('quiz-feedback').textContent = 'Salah, coba lagi! 😊';
+            }
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('score').textContent = `Skor kamu: ${score}/${quizQuestions.length}`;
+            document.getElementById('motivation').textContent = score >= 3 ? 'Hebat! Kamu peduli dengan kesehatanmu! 🌟' : 'Bagus! Belajar lagi yuk! 💪';
+        }
+
+        if (document.getElementById('quiz')) startQuiz();
+    </script>
+</body>
+</html>
